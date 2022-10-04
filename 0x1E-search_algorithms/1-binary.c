@@ -1,57 +1,44 @@
 #include "search_algos.h"
-
 /**
- * binary_search - binary search implementation
- * @array: string
- * @size: size_t
- * @value: value
- * Return: int, index of the value
- */
-
+ * binary_search - searches for value in a sorted array
+ * of integers using the Binary search algorithm
+ * @array: pointer to the first element of the array to search
+ * @size: the number of elements in array
+ * @value: the value to search
+ *
+ * Return: -1 if value is not present in array or if array is NULL
+ *
+ **/
 int binary_search(int *array, size_t size, int value)
 {
-size_t i;
-int left = 0;
-int right = size;
-int middle;
-if (array == NULL)
-	return (-1);
+	int i = 0, left = 0, right = size - 1;
+	int middle;
 
-for (i = 0; left < right; i++)
-{
-	printf("Searching in array: ");
-	print_array(array, left, right);
-	middle = (left + right) / 2;
-
-	if (array[middle] < value)
-		left = middle + 1;
-	else if (array[middle] > value)
-		right = middle;
-	else
-		return (middle);
-}
-return (-1);
-}
-
-
-/**
- * print_array - print `n` elements of an array of integers
- * @a: int array pointer to print
- * @i: int, start index
- * @j: int, end index
- * Description: Numbers must be separated by comma and space.
- * Numbers should be displayed in the same order they are stored in array.
- * You can only use _putchar to print.
- */
-
-void print_array(int *a, int i, int j)
-{
-
-	for (; i < j; i++)
+	while (left <= right)
 	{
-		printf("%d", a[i]);
-		if (i < j - 1)
-			printf(", ");
+		printf("Searching in array: ");
+
+		i = left;
+
+		while (i <= right)
+		{
+			if (i == right)
+			{
+				printf("%i\n", array[i]);
+			}
+			else
+			{
+				printf("%i, ", array[i]);
+			}
+			i++;
+		}
+		middle = left + (right - left) / 2;
+		if (array[middle] == value)
+			return (middle);
+		if (array[middle] < value)
+			left = middle + 1;
+		else
+			right = middle - 1;
 	}
-	printf("\n");
+	return (-1);
 }
